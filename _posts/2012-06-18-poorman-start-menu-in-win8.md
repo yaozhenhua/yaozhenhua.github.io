@@ -10,11 +10,11 @@ apps instead of sorting them alphabetically, particularly when there are duplica
 have a poor man's start menu without using any app (in fact it's a folder toolbar).
 
 1. Right click the task bar, and choose Toolbars -> New toolbar.
-[New toolbar...](/public/20120618-startmenu-1.jpg)
+![New toolbar...](/public/20120618-startmenu-1.jpg)
 
 2. Browse to ```C:\ProgramData\Microsoft\Windows\Start Menu```, and click "Select Folder" button.  Note that
 ```C:\ProgramData``` is a hidden directory, so you have to manually enter the location.
-[Select Folder](/public/20120618-startmenu-2.png)
+![Select Folder](/public/20120618-startmenu-2.png)
 
 3. Enjoy the brand new poor man's Start Menu!
-[Start menu!](/public/20120618-startmenu-3.png)
+![Start menu!](/public/20120618-startmenu-3.png)
