@@ -7,14 +7,14 @@ relative_permalinks: true
 # Setup
 title:               Blackboard
 tagline:             'Perspectives and thoughts from Zhenhua Yao'
-description:         'Site description.'
+description:         '<b>Blackboard</b> - personal memo of random stuff on software development.'
 url:                 http://yaozhenhua.github.io
 baseurl:             ''
 paginate:            5
 
 # About/contact
 author:
-  name:              Zhenhua
+  name:              Zhenhua Yao
   url:               https://twitter.com/yaozhenhua
   email:             yaozhenhua@users.noreply.github.com
 
