@@ -10,13 +10,13 @@ reference in managed project.
 
 * Project A
   * app.config
-  * …
+  * ...
   * bin
     * A.dll
     * A.dll.config
 * Project B
   * app.config
-  * …
+  * ...
   * bin
     * B.dll
     * B.dll.config
@@ -25,7 +25,7 @@ reference in managed project.
 When the project B is built, project A assembly will be copied to the output path but the app.config
 will not follow.
 
-**Solution**: build the project with MSBuild with options “/fl /v:d”, read MSBuild.log and analyze when
+**Solution**: build the project with MSBuild with options "/fl /v:d", read MSBuild.log and analyze when
 the output of project A is copied to the output path of project B.  We can see that it is the following
 parameters and target in file `%windir%\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.targets`
 that control what to be copied and how:
