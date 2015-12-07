@@ -11,6 +11,9 @@ description:         '<b>Blackboard</b> - personal memo of random stuff on softw
 url:                 http://yaozhenhua.github.io
 baseurl:             ''
 paginate:            5
+markdown:            redcarpet
+redcarpet:
+  extensions:        ["tables", "autolink", "strikethrough", "space_after_headers", "with_toc_data", "fenced_code_blocks"]
 
 # About/contact
 author:

@@ -117,6 +117,7 @@ consumption.
 
 
 Live objects statistics:
+
 ```
 0:000> !dumpheap -stat -live
 Statistics:
@@ -137,6 +138,7 @@ Total 65529511 objects
 ```
 
 Dead objects statistics:
+
 ```
 ...
 000007fa35b12090    83244     36607082 System.Char[]
