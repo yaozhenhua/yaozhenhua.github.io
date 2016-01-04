@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Managed Code Memory Analysis Using SOS
+comments: true
 ---
 
 Memory consumption of managed code program is often a problem.  With automatic memory management and garbage collection,

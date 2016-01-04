@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Effective Code Search on Windows
+comments: true
 ---
 
 No one remembers everything. In a large code base, we usually only know the details of a tiny part of it. Often times we have to search the code to know how things are defined or used across large number of files. Here I’d like to share a few tips to search source code.

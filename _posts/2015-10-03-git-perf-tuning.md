@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Git Performance Tuning
+comments: true
 ---
 
 The vanilla Git installed using Chocolatey or [git-scm](https://git-scm.com/download/win) (same source) is slow.  On my company dev machine it is even slower than my home machine. If you compare the performance with Linux counterpart, it is noticeably slower. In fact if you open Git Bash, you may notice every command, including ```ls```, has significant slow response. There are fundamental issues that we cannot fix, for instance extensive using of fork() which is cheap on Linux but expensive on Windows, but with some tuning we can make it faster.

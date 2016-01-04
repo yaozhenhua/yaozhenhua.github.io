@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Autologon and run GUI programs remotely in desktop session
+comments: true
 ---
 
 This is a note of how to automate the remote execution of a GUI program on a test machine.

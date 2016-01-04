@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Bypass access restrictions in managed code
+comments: true
 ---
 
 For some reason I need to access a private field in a class in the system library.  .NET provides a way to do it.
