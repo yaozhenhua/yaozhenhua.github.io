@@ -66,3 +66,36 @@ using embedded C# code in the script:
 {% endhighlight %}
 
 If you are interested, you may download the script [here](~/code/GenerateContractImpl.ps1).
+
+Next, one can include the auto-generated code in the build by modifying csproj file:
+
+    <ItemGroup>
+      <Compile Include="$(IntermediateOutputPath)NetworkManagementProxy.codegen.cs" />
+      ...
+    </ItemGroup>
+
+The last question is where and how to generate the code in the right location, i.e. `$(IntermediateOutputPath)`.  Since
+the code generation is needed before C# compiler is invoked and it requires the interface assembly being accessible (as
+well as its dependencies), the best approach is to define a target *AfterResolveReference*.  This target is empty by
+default, it is invoked after all project references are resolved and handled properly and before Compile target is
+started.  One can also use *BeforeCompile* target, which is invoked a moment after "AfterResolveReference" and right
+before CoreCompile.  To get more details on this, read `Microsoft.Common.targets` in .NET framework directory on the
+machine.
+
+The target looks like this:
+
+    <Target Name="AfterResolveReferences">
+      <PropertyGroup>
+        <codegencmd>PowerShell.exe -ExecutionPolicy ByPass -File $(MSBuildProjectDirectory)\GenerateContractImpl.ps1</codegencmd>
+        <codegencmd>$(codegencmd) -AssemblyPath XX.Contracts.dll -InterfaceName Microsoft.XX</codegencmd>
+        <codegencmd>$(codegencmd) -Namespace Microsoft.XX -ClassName NetworkManagementProxy</codegencmd>
+        <codegencmd>$(codegencmd) &gt; $(IntermediateOutputPath)NetworkManagementProxy.codegen.cs</codegencmd>
+      </PropertyGroup>
+      <!-- Copy the missing DCM dependencies into the directory -->
+      <Message Text="Generating code: $(codegencmd)" />
+      <Exec WorkingDirectory="$(OutDir)\..\XX.Contracts" Command="$(codegencmd)" />
+    </Target>
+
+With this change in csproj file, the only human-written code is a partial class with `CallWithRetry` method which is
+referenced by all interface methods.  No matter how interface changes, the maitainence cost is limited to the partial
+class itself.
