@@ -30,11 +30,14 @@ instance multimedia applications and Chrome browser often set the clock interval
 impact on the battery usage, it is avoided whenever possible.  On servers this is normally kept as default.
 
 One can query the clock using sysinternal app `clockres.exe` or Windows built-in program `powercfg`.  On my desktop the
-clock interval is 15.625 milliseconds (ms), and the minimum supported interval is 0.5 ms.  15 ms resolution is
-sufficient for most real-world events, e.g. when the next TV show starts, but it is insufficient for time measurements
-on computers in many cases, in particular the events lasting tens of milliseconds or less.  For instance, if an action
-starts at some point in clock interval 1 and stops at another point in clock interval, using the system clock you will
-see a time span of 31 ms, but actually it can be anywhere from 15.625 to 46.875 ms.
+clock interval is 15.625 milliseconds (ms) (64 Hz frequency), and the minimum supported interval is 0.5 ms.  15 ms
+resolution is sufficient for most real-world events, e.g. when the next TV show starts, but it is insufficient for time
+measurements on computers in many cases, in particular the events lasting tens of milliseconds or less.  For instance,
+if an action starts at some point in clock interval 1 and stops at another point in clock interval, using the system
+clock you will see a time span of 31 ms, but actually it can be anywhere from 15.625 to 46.875 ms.  On the other hand,
+if an action starts and stops within the same clock interval, the system clock will tell you the duration is 0 but it
+can be as long as 15 ms.  My coworker once said "the request is received at xxx, at the same time it gets processed
+...", sorry within a single thread two different things do not happen at the *same* time.
 
 In .NET, system clock is retrieved using `DateTime.UtcNow` (see [MSDN
 doc](https://msdn.microsoft.com/en-us/library/system.datetime.utcnow%28v=vs.110%29.aspx?f=255&MSPPError=-2147217396)).
@@ -59,6 +62,10 @@ if the computer adjusts the clock after synchronizing to the time server, this w
 backward jump.  In fact I saw a stress test failure caused by clock forward adjustment, when the timeout was evaluated
 the time sync happened so the calculated time span was several minutes greater than the actual value.  This kind of bug
 is hard to notice and investigate, but trivial to fix.  Avoid wall clock time if possible.
+
+In term of overhead, Stopwatch is more expensive than DateTime.UtcNow.  However both take very little CPU time.  On my
+home PC, Stopwatch takes about 6 ns vs 3 ns for DateTime.UtcNow.  Normally it is much shorter than the duration being
+measured.
 
 The last question is that, if we do need the absolute time correlation on multiple computers, is there anything better
 than `System.DateTime.UtcNow`?  The answer is yes, setup all computers to the same time source, then use
